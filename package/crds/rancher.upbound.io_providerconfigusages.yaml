@@ -5,14 +5,14 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.11.3
   creationTimestamp: null
-  name: providerconfigusages.template.upbound.io
+  name: providerconfigusages.rancher.upbound.io
 spec:
-  group: template.upbound.io
+  group: rancher.upbound.io
   names:
     categories:
     - crossplane
     - provider
-    - template
+    - rancher
     kind: ProviderConfigUsage
     listKind: ProviderConfigUsageList
     plural: providerconfigusages

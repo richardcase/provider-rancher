@@ -15,7 +15,7 @@ import (
 
 	"github.com/upbound/upjet/pkg/terraform"
 
-	"github.com/upbound/upjet-provider-template/apis/v1beta1"
+	"github.com/richardcase/provider-rancher/apis/v1beta1"
 )
 
 const (
@@ -24,7 +24,10 @@ const (
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
-	errUnmarshalCredentials = "cannot unmarshal template credentials as JSON"
+	errUnmarshalCredentials = "cannot unmarshal rancher credentials as JSON"
+
+	keyRancherURL   = "rancher_url"
+	keyRancherToken = "rancher_token"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -62,11 +65,13 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
-		// Set credentials in Terraform provider configuration.
-		/*ps.Configuration = map[string]any{
-			"username": creds["username"],
-			"password": creds["password"],
-		}*/
+		ps.Configuration = map[string]any{}
+		if v, ok := creds[keyRancherURL]; ok {
+			ps.Configuration[keyRancherURL] = v
+		}
+		if v, ok := creds[keyRancherToken]; ok {
+			ps.Configuration[keyRancherToken] = v
+		}
 		return ps, nil
 	}
 }

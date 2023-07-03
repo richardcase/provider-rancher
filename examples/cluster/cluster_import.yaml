@@ -1,0 +1,14 @@
+apiVersion: cluster.rancher.upbound.io/v1alpha1
+kind: Cluster
+metadata:
+  name: test-import
+spec:
+  forProvider:
+    description: "Import cluster"
+    visibility: public
+    template:
+      - owner: upbound
+        repository: upjet-provider-template
+  providerConfigRef:
+    name: default
+EOF

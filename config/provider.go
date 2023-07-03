@@ -10,12 +10,12 @@ import (
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
 
-	"github.com/upbound/upjet-provider-template/config/null"
+	"github.com/richardcase/provider-rancher/config/cluster"
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/upbound/upjet-provider-template"
+	resourcePrefix = "rancher"
+	modulePath     = "github.com/richardcase/provider-rancher"
 )
 
 //go:embed schema.json
@@ -35,7 +35,7 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		null.Configure,
+		cluster.Configure,
 	} {
 		configure(pc)
 	}
